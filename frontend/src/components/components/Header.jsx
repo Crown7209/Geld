@@ -1,9 +1,17 @@
 import Link from "next/link";
-import { Logo } from "../svg/Logo";
-import { PlusIcon } from "../svg/PlusIcon";
 import { HeaderAddRecord } from "../ui/HeaderAddRecord";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { Logo } from "../svg";
 
 export const Header = ({ dashboard, records }) => {
+  const router = useRouter();
+  const SignOut = () => {
+    localStorage.removeItem("isLoggedIn");
+    router.push("/");
+    toast.success("Successfully signed out");
+  };
+
   return (
     <div className="w-full flex justify-center bg-white">
       <div className="max-w-[1440px] w-full px-[120px] py-4 ">
@@ -32,7 +40,10 @@ export const Header = ({ dashboard, records }) => {
           </div>
           <div className="flex items-center gap-6">
             <HeaderAddRecord />
-            <div className="w-10 h-10 bg-blue-600 rounded-full cursor-pointer"></div>
+            <button
+              onClick={SignOut}
+              className="w-10 h-10 bg-blue-600 rounded-full cursor-pointer"
+            ></button>
           </div>
         </div>
       </div>
