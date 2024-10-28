@@ -26,8 +26,23 @@ export const RecordsPage = () => {
   //   fetchRecords();
   // }, []);
 
+  const [dataRecord, setDataRecord] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/records", );
+
+      const data = await response.json();
+      setDataRecord(data?.record);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-[#F3F4F6] gap-8">
+    <div className="w-full min-h-screen h-aut flex flex-col items-center bg-[#F3F4F6] gap-8">
       <Header dashboard={false} records={true} />
       <div className="flex gap-6 max-w-[1440px] w-full px-[120px]">
         <div className="px-4 py-6 max-w-[282px] w-full bg-white rounded-xl border border-[#E5E7EB] flex flex-col gap-6">
@@ -139,12 +154,9 @@ export const RecordsPage = () => {
                 Yesterday
               </p>
               <div className="flex flex-col gap-3">
-                <Record />
-                <Record />
-                <Record />
-                <Record />
-                <Record />
-                <Record />
+                {dataRecord?.map((record, recordIndex) => {
+                  return <Record record={record} />;
+                })}
               </div>
             </div>
           </div>

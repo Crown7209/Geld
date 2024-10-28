@@ -4,50 +4,7 @@ import { ChooseCategory } from "./ChooseCategory";
 import { BACKEND_ENDPOINT } from "@/constants/constant";
 
 export const AddRecord = () => {
-  // const [record, setRecord] = useState({});
 
-  // const handleSubmit = async (event) => {
-  //   try {
-  //     event.preventDefault();
-  //     const options = {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //       body: JSON.stringify(record),
-  //     };
-  //     const response = await fetch(`${BACKEND_ENDPOINT}/record`, options);
-  //     const data = await response.json();
-  //     setRecord((prevRecords) => [...prevRecords, data.record]);
-  //   } catch {
-  //     console.log("Error");
-  //   }
-
-  //   setRecord({
-  //     type: "",
-  //     amount: "",
-  //     category: "",
-  //     date: "",
-  //     time: "",
-  //     payee: "",
-  //     note: "",
-  //   });
-
-  //   document.getElementById("plus_record").close();
-  // };
-
-  // const handleInputChange = async (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-
-  //   setRecord((prevRecord) => {
-  //     return {
-  //       ...prevRecord,
-  //       [name]: value,
-  //     };
-  //   });
-  // };
 
   return (
     <>

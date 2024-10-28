@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import fs from "fs";
@@ -16,6 +16,24 @@ app.use(cors());
 app.get("/", async (request, response) => {
   try {
     const sqlResponse = await sql`SELECT * FROM users`;
+    response.json({ data: sqlResponse, success: true });
+  } catch (error) {
+    response.json({ error: error, success: false });
+  }
+});
+
+app.get("/records", async (request, response) => {
+  try {
+    const sqlResponse = await sql`SELECT * FROM record`;
+    response.json({ data: sqlResponse, success: true });
+  } catch (error) {
+    response.json({ error: error, success: false });
+  }
+});
+
+app.get("/category", async (request, response) => {
+  try {
+    const sqlResponse = await sql`SELECT * FROM category`;
     response.json({ data: sqlResponse, success: true });
   } catch (error) {
     response.json({ error: error, success: false });
@@ -48,7 +66,7 @@ app.post("/sign-up", async (request, response) => {
   }
 });
 
-app.post("/sign-in", async (request, response) => {
+app.post("/", async (request, response) => {
   const { email, password } = request.body;
 
   try {
@@ -68,6 +86,28 @@ app.post("/sign-in", async (request, response) => {
     response
       .status(500)
       .json({ message: "Internal server error during login user" });
+  }
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+app.post("/records", async (request, response) => {
+  const { user_id, name, amount, transaction_type, description, category_id } =
+    request.body;
+
+  try {
+    const record = await sql`
+      INSERT INTO category (user_id, name, amount, transaction_type, description, category_id ) 
+      VALUES ( ${user_id}, ${name}, ${amount}, ${transaction_type}, ${description}, ${category_id})`;
+
+    response.json({
+      message: `asdfasdfasdf`, ////
+      record,
+    });
+  } catch (error) {
+    response
+      .status(500)
+      .json({ message: "Blah blah jfkdsjakl;sdfjkslajfkl;dsajkl" }); ////
   }
 });
 

@@ -20,12 +20,12 @@ const DashboardPage = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (!isLoggedIn) {
       toast.warning("Login please!");
-      router.push("/sign-in");
+      router.push("/");
     }
   }, [router]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-[#F3F4F6] gap-8">
+    <div className="w-full min-h-screen h-auto flex flex-col items-center bg-[#F3F4F6] gap-8">
       <Header dashboard={true} records={false} />
       <div className="w-full max-w-[1440px] px-[120px] flex flex-col gap-6">
         <div className="flex w-full border-opacity-50 gap-6">

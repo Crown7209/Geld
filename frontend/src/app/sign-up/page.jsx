@@ -38,7 +38,7 @@ const SignUpPage = () => {
         const data = await response.json();
 
         if (response.ok) {
-          router.push("/sign-in");
+          router.push("/");
         } else {
           setErrorMessage(data.message || "Error occurred");
         }
@@ -121,7 +121,7 @@ const SignUpPage = () => {
               Already have an account?
             </p>
             <Link
-              href="/sign-in"
+              href="/"
               className="h-8 px-3 flex justify-center items-center text-[#0166FF] text-base font-roboto font-normal "
             >
               Log in

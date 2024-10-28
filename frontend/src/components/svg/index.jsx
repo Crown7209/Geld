@@ -19,3 +19,5 @@ export * from "./ShoppingIcon";
 export * from "./CloseEye";
 export * from "./OpenEye";
 export * from "./Geld";
+export * from "./GeldBig";
+export * from "./LogoBig";

@@ -7,8 +7,10 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { Geld, Logo } from "@/components/svg";
 import { useRouter } from "next/navigation";
+import { Loader } from "@/components/ui/Loader";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -27,6 +29,7 @@ export default function Home() {
     onSubmit: async (values) => {
       setErrorMessage("");
       try {
+        setIsLoading(true);
         const response = await fetch("http://localhost:5000/sign-in", {
           method: "POST",
           headers: {
@@ -36,9 +39,6 @@ export default function Home() {
         });
 
         const data = await response.json();
-        console.log("email", email.value);
-        console.log("pass", password);
-        console.log("data", data);
 
         if (response.ok) {
           toast.success("Login successful!");
@@ -47,6 +47,7 @@ export default function Home() {
         } else {
           setErrorMessage(data.message || "Invalid credentials");
         }
+        setIsLoading(false);
       } catch (error) {
         setErrorMessage("Network error");
       }
@@ -54,12 +55,17 @@ export default function Home() {
   });
 
   useEffect(() => {
+    setIsLoading(false)
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn) {
       toast.success("You already login");
       router.push("/dashboard");
     }
   }, [router]);
+
+  if (isLoading === true) {
+    return <Loader />;
+  }
 
   return (
     <div className="w-full h-screen flex justify-between">
