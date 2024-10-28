@@ -30,7 +30,7 @@ export default function Home() {
       setErrorMessage("");
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:5000/sign-in", {
+        const response = await fetch("http://localhost:5000/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -8,7 +8,7 @@ import {
   HomeIcon,
 } from "@/components/svg";
 import { Header } from "@/components/components/Header";
-import { useRouter } from "next/compat/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
