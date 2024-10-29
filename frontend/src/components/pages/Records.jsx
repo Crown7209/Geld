@@ -27,19 +27,27 @@ export const RecordsPage = () => {
   // }, []);
 
   const [dataRecord, setDataRecord] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/records", );
+      const response = await fetch("http://localhost:5000/records");
 
-      const data = await response.json();
-      setDataRecord(data?.record);
-    } catch (error) {}
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const record = await response.json();
+      setDataRecord(record.data);
+    } catch (error) {
+      console.error(error);
+      setError("Error occurred while fetching records.");
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dataRecord]);
 
   return (
     <div className="w-full min-h-screen h-aut flex flex-col items-center bg-[#F3F4F6] gap-8">
@@ -154,8 +162,12 @@ export const RecordsPage = () => {
                 Yesterday
               </p>
               <div className="flex flex-col gap-3">
-                {dataRecord?.map((record, recordIndex) => {
-                  return <Record record={record} />;
+                {dataRecord?.map((record, index) => {
+                  return (
+                    <div key={index}>
+                      <Record record={record} />
+                    </div>
+                  );
                 })}
               </div>
             </div>
