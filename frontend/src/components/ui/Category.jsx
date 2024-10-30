@@ -1,7 +1,6 @@
 import { CloseEye, OpenEye } from "../svg";
 
-
-export const Category = () => {
+export const Category = ({ category }) => {
   return (
     <div className="px-3 flex gap-2 items-center h-8">
       <label className="swap">
@@ -10,7 +9,7 @@ export const Category = () => {
         <CloseEye />
       </label>
       <p className="text-base font-normal font-roboto text-[#1F2937]">
-        Food & Drinks
+        {category.name}
       </p>
     </div>
   );

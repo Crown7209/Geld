@@ -9,27 +9,26 @@ import { Record } from "../ui/Record";
 import { AddCategory } from "../ui/AddCategory";
 
 export const RecordsPage = () => {
-  // const [records, setRecords] = useState([]);
-  // const [selectedRecord, setSelectedRecord] = useState({});
-
-  // const fetchRecords = async () => {
-  //   try {
-  //     const response = await fetch(`${BACKEND_ENDPOINT}/records`);
-  //     const responseData = await response.json();
-  //     setRecords(responseData?.records);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchRecords();
-  // }, []);
-
   const [dataRecord, setDataRecord] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  const fetchCategoryData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/category");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const category = await response.json();
+      setDataCategory(category.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchRecordsData = async () => {
     try {
       const response = await fetch("http://localhost:5000/records");
 
@@ -46,7 +45,8 @@ export const RecordsPage = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchRecordsData();
+    fetchCategoryData();
   }, [dataRecord]);
 
   return (
@@ -105,16 +105,13 @@ export const RecordsPage = () => {
               </button>
             </div>
             <div className="flex flex-col gap-2">
-              <Category />
-              <Category />
-              <Category />
-              <Category />
-              <Category />
-              <Category />
-              <Category />
-              <Category />
-              <Category />
-              <Category />
+              {dataCategory?.map((category, categoryIndex) => {
+                return (
+                  <div key={categoryIndex}>
+                    <Category category={category} />
+                  </div>
+                );
+              })}
             </div>
             <AddCategory />
           </div>
@@ -147,14 +144,13 @@ export const RecordsPage = () => {
                 Today
               </p>
               <div className="flex flex-col gap-3">
-                {/* {records?.map((record) => {
-                  return <Record records={record} setRecords={setRecords} />;
-                })} */}
-                <Record />
-                <Record />
-                <Record />
-                <Record />
-                <Record />
+                {dataRecord?.map((record, recordIndex) => {
+                  return (
+                    <div key={recordIndex}>
+                      <Record record={record} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="flex flex-col gap-3">
@@ -162,13 +158,13 @@ export const RecordsPage = () => {
                 Yesterday
               </p>
               <div className="flex flex-col gap-3">
-                {dataRecord?.map((record, index) => {
+                {/* {dataRecord?.map((record, recordIndex) => {
                   return (
-                    <div key={index}>
+                    <div key={recordIndex}>
                       <Record record={record} />
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </div>
           </div>

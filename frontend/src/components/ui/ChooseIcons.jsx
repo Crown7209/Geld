@@ -44,7 +44,7 @@ export const ChooseIcons = () => {
       </button>
 
       <dialog id="choose_icons" className="modal">
-        <div className="modal-box max-w-[312px] w-full rounded-lg p-0">
+        <div className="modal-box max-w-[312px] w-full rounded-lg p-0 mt-[384px] mr-[132px]">
           <div className="p-6 flex flex-col gap-6">
             <div className="grid grid-cols-6 grid-rows-5 gap-6">
               <Home />

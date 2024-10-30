@@ -1,7 +1,6 @@
 import express, { response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import fs from "fs";
 import dotenv from "dotenv";
 import { neon } from "@neondatabase/serverless";
 dotenv.config();
@@ -39,6 +38,8 @@ app.get("/category", async (request, response) => {
     response.json({ error: error, success: false });
   }
 });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.post("/sign-up", async (request, response) => {
   const { name, email, password } = request.body;
