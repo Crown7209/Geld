@@ -5,18 +5,18 @@ import { ChooseIcons } from "./ChooseIcons";
 export const AddCategory = () => {
   return (
     <>
-      <div className="px-3 flex items-center gap-2 h-8">
-        <button
-          onClick={() => document.getElementById("add_record").showModal()}
-        >
-          <div className="cursor-pointer">
-            <BluePlusIcon />
-          </div>
-        </button>
+      <button
+        className="px-3 flex items-center gap-2 h-8"
+        onClick={() => document.getElementById("add_record").showModal()}
+      >
+        <div className="cursor-pointer">
+          <BluePlusIcon />
+        </div>
+
         <p className="text-base font-normal font-roboto text-[#1F2937]">
           Add Category
         </p>
-      </div>
+      </button>
 
       <dialog id="add_record" className="modal">
         <div className="modal-box max-w-[494px] w-full rounded-xl p-0">

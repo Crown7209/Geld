@@ -45,8 +45,11 @@ export const RecordsPage = () => {
   };
 
   useEffect(() => {
-    fetchRecordsData();
     fetchCategoryData();
+  }, [dataCategory]);
+
+  useEffect(() => {
+    fetchRecordsData();
   }, [dataRecord]);
 
   return (
