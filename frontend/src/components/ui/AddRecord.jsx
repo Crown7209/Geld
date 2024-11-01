@@ -1,10 +1,16 @@
+"use client";
+
 import { useState } from "react";
 import { CloseIcon, DownArrow, PlusIcon } from "../svg";
 import { ChooseCategory } from "./ChooseCategory";
 import { BACKEND_ENDPOINT } from "@/constants/constant";
 
 export const AddRecord = () => {
+  const [transactionType, setTransactionType] = useState("EXP");
 
+  const toggleTransactionType = (type) => {
+    setTransactionType(type);
+  };
 
   return (
     <>
@@ -32,13 +38,28 @@ export const AddRecord = () => {
           </div>
           <div className="flex">
             <div className="px-6 py-5 flex flex-col gap-5 max-w-[396px] w-full">
-              <div className="flex gap-1 rounded-full bg-[#F3F4F6]">
-                <button className="w-full h-10 rounded-full bg-[#0166FF] text-base font-normal font-roboto text-[#F9FAFB]">
+              <div className="flex gap-1 rounded-full bg-[#F3F4F6] relative">
+                <button
+                  onClick={() => toggleTransactionType("EXP")}
+                  className={`w-full h-10 rounded-full  text-base font-normal font-roboto ${
+                    transactionType === "EXP"
+                      ? "text-[#F9FAFB] bg-[#0166FF]"
+                      : "text-[#1F2937]"
+                  }`}
+                >
                   Expense
                 </button>
-                <button className="w-full h-10 rounded-full text-base font-normal font-roboto text-[#1F2937]">
+                <button
+                  onClick={() => toggleTransactionType("INC")}
+                  className={`w-full h-10 rounded-full text-base font-normal font-roboto text-[#1F2937] ${
+                    transactionType === "EXP"
+                      ? "text-[#1F2937]"
+                      : "text-[#F9FAFB] bg-[#16A34A]"
+                  }`}
+                >
                   Income
                 </button>
+                {/* <div className="absolute h-10 w-[172px] bg-[#0166FF]"></div> */}
               </div>
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-[19px]">
@@ -90,7 +111,10 @@ export const AddRecord = () => {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-[#0166FF] rounded-full text-base font-normal font-roboto text-[#F9FAFB] h-10"
+                  type="submit"
+                  className={`w-full rounded-full text-base font-normal font-roboto text-[#F9FAFB] h-10 ${
+                    transactionType === "EXP" ? "bg-[#0166FF]" : "bg-[#16A34A]"
+                  }`}
                   // onClick={handleSubmit}
                 >
                   Add Record
