@@ -14,8 +14,8 @@ app.use(cors());
 
 app.get("/", async (request, response) => {
   try {
-    const sqlResponse = await sql`SELECT * FROM users`;
-    response.json({ data: sqlResponse, success: true });
+    const users = await sql`SELECT * FROM users`;
+    response.json({ data: users, success: true });
   } catch (error) {
     response.json({ error: error, success: false });
   }
@@ -23,8 +23,8 @@ app.get("/", async (request, response) => {
 
 app.get("/records", async (request, response) => {
   try {
-    const sqlResponse = await sql`SELECT * FROM record`;
-    response.json({ data: sqlResponse, success: true });
+    const records = await sql`SELECT * FROM record`;
+    response.json({ data: records, success: true });
   } catch (error) {
     response.json({ error: error, success: false });
   }
@@ -32,8 +32,8 @@ app.get("/records", async (request, response) => {
 
 app.get("/category", async (request, response) => {
   try {
-    const sqlResponse = await sql`SELECT * FROM category`;
-    response.json({ data: sqlResponse, success: true });
+    const category = await sql`SELECT * FROM category`;
+    response.json({ data: category, success: true });
   } catch (error) {
     response.json({ error: error, success: false });
   }
@@ -93,13 +93,20 @@ app.post("/", async (request, response) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.post("/records", async (request, response) => {
-  const { user_id, name, amount, transaction_type, description, category_id } =
-    request.body;
+  const {
+    user_id,
+    name,
+    amount,
+    transaction_type,
+    description,
+    category_id,
+    createdat,
+  } = request.body;
 
   try {
     const record = await sql`
-      INSERT INTO category (user_id, name, amount, transaction_type, description, category_id ) 
-      VALUES ( ${user_id}, ${name}, ${amount}, ${transaction_type}, ${description}, ${category_id})`;
+      INSERT INTO record (user_id, name, amount, transaction_type, description, category_id, createdat ) 
+      VALUES ( ${user_id}, ${name}, ${amount}, ${transaction_type}, ${description}, ${category_id}, ${createdat})`;
 
     response.json({
       message: `asdfasdfasdf`, ////
