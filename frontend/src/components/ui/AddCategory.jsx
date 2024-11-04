@@ -39,7 +39,10 @@ export const AddCategory = () => {
                 placeholder="Name"
               />
             </div>
-            <button className="bg-[#16A34A] rounded-[20px] h-10 text-base font-normal font-roboto text-[#F9FAFB]">
+            <button
+              type="submit"
+              className="bg-[#16A34A] rounded-[20px] h-10 text-base font-normal font-roboto text-[#F9FAFB]"
+            >
               Add
             </button>
           </div>

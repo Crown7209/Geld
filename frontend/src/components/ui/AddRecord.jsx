@@ -3,72 +3,49 @@
 import { useEffect, useState } from "react";
 import { CloseIcon, PlusIcon } from "../svg";
 import { ChooseCategory } from "./ChooseCategory";
+import { useFormik } from "formik";
 
 export const AddRecord = () => {
   const [transactionType, setTransactionType] = useState("EXP");
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-  const [records, setRecords] = useState({
-    name: "",
-    amount: "",
-    transaction_type: transactionType,
-    category_id: "",
-    description: "",
-    createdat: "",
-  });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const toggleTransactionType = (type) => {
     setTransactionType(type);
-    setRecords((prev) => ({ ...prev, transaction_type: type }));
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setRecords((prevRecords) => ({ ...prevRecords, [name]: value }));
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      amount: "",
+      transaction_type: transactionType,
+      // category_id: "",
+      description: "",
+      // createdat: "",
+    },
 
-  const fetchCategory = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/category");
-      if (!response.ok) throw new Error(`HTTP error!`);
-      const responseData = await response.json();
-      setCategories(responseData);
-    } catch (error) {
-      console.error(error);
-      setError("Error occured while fetching categories.");
-    }
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost:5000/records", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(records),
-      });
-
-      if (!response.ok) throw new Error(`HTTP error! status:`);
-
-      console.log("Record added successfully!");
-
-      setRecords({
-        name: "",
-        amount: "",
+    onSubmit: async (values) => {
+      const requestData = {
+        ...values,
         transaction_type: transactionType,
-        category_id: "",
-        description: "",
-        createdat: "",
-      });
-    } catch (error) {
-      console.error("Error adding record:", error);
-    }
-  };
+      };
+      try {
+        const response = await fetch("http://localhost:5000/record", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
+        const data = await response.json();
 
-  useEffect(() => {
-    fetchCategory();
-  }, []);
+        if (!response.ok)
+          throw new Error(`HTTP error! status: ${response.status}`);
+        console.log(data);
+      } catch (error) {
+        setErrorMessage("Network error");
+      }
+    },
+  });
 
   return (
     <>
@@ -94,12 +71,13 @@ export const AddRecord = () => {
               </button>
             </form>
           </div>
-          <form onSubmit={handleFormSubmit} className="flex">
+          <form onSubmit={formik.handleSubmit} className="flex">
             <div className="px-6 py-5 flex flex-col gap-5 max-w-[396px] w-full">
               <div className="flex gap-1 rounded-full bg-[#F3F4F6] relative">
                 <button
+                  type="button"
                   onClick={() => toggleTransactionType("EXP")}
-                  className={`w-full h-10 rounded-full  text-base font-normal font-roboto ${
+                  className={`w-full h-10 rounded-full text-base font-normal font-roboto ${
                     transactionType === "EXP"
                       ? "text-[#F9FAFB] bg-[#0166FF]"
                       : "text-[#1F2937]"
@@ -108,8 +86,9 @@ export const AddRecord = () => {
                   Expense
                 </button>
                 <button
+                  type="button"
                   onClick={() => toggleTransactionType("INC")}
-                  className={`w-full h-10 rounded-full text-base font-normal font-roboto text-[#1F2937] ${
+                  className={`w-full h-10 rounded-full text-base font-normal font-roboto ${
                     transactionType === "EXP"
                       ? "text-[#1F2937]"
                       : "text-[#F9FAFB] bg-[#16A34A]"
@@ -126,12 +105,13 @@ export const AddRecord = () => {
                       Amount
                     </p>
                     <input
+                      id="amount"
                       name="amount"
-                      onChange={handleInputChange}
                       type="number"
                       className="w-full bg-[#F3F4F6] outline-none text-xl font-normal font-roboto text-[#9CA3AF]"
                       placeholder="₮  000.00"
-                      value={records?.amount}
+                      value={formik.values.amount}
+                      onChange={formik.handleChange}
                     />
                   </div>
 
@@ -139,7 +119,8 @@ export const AddRecord = () => {
                     <p className="text-base font-normal font-roboto text-[#1F2937]">
                       Category
                     </p>
-                    {/* <ChooseCategory /> */}
+                    <ChooseCategory />
+                    
                   </div>
                   <div className="flex gap-3">
                     <div className="flex flex-col gap-[5px] w-full">
@@ -147,11 +128,12 @@ export const AddRecord = () => {
                         Date
                       </p>
                       <input
-                        name="date"
-                        onChange={handleInputChange}
+                        id="createdat"
+                        name="createdat"
                         type="date"
                         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center outline-none"
-                        value={records?.date}
+                        // value={formik.values.createdat}
+                        // onChange={formik.handleChange}
                       />
                     </div>
                     <div className="flex flex-col gap-[5px] w-full">
@@ -159,11 +141,12 @@ export const AddRecord = () => {
                         Time
                       </p>
                       <input
-                        name="time"
-                        onChange={handleInputChange}
+                        id="createdat"
+                        name="createdat"
                         type="time"
                         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center outline-none"
-                        value={records?.time}
+                        // value={formik.values.createdat}
+                        // onChange={formik.handleChange}
                       />
                     </div>
                   </div>
@@ -185,12 +168,13 @@ export const AddRecord = () => {
                   Payee
                 </p>
                 <input
+                  id="name"
                   name="name"
-                  onChange={handleInputChange}
                   type="text"
                   className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 text-base font-normal font-roboto text-[#94A3B8] outline-none"
                   placeholder="Write here"
-                  value={records?.name}
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
                 />
               </div>
               <div className="flex flex-col gap-[5px]">
@@ -198,11 +182,12 @@ export const AddRecord = () => {
                   Note
                 </p>
                 <textarea
+                  id="description"
                   name="description"
-                  onChange={handleInputChange}
                   className="w-full h-[282px] rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] p-4 text-base font-normal font-roboto text-[#94A3B8] outline-none"
                   placeholder="Write here"
-                  value={records?.description}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
                 ></textarea>
               </div>
             </div>

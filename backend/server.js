@@ -23,7 +23,7 @@ app.get("/", async (request, response) => {
 
 app.get("/records", async (request, response) => {
   try {
-    const records = await sql`SELECT * FROM record`;
+    const records = await sql`SELECT * FROM "record" ORDER BY createdat DESC`;
     response.json({ data: records, success: true });
   } catch (error) {
     response.json({ error: error, success: false });
@@ -92,7 +92,7 @@ app.post("/", async (request, response) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.post("/records", async (request, response) => {
+app.post("/record", async (request, response) => {
   const {
     user_id,
     name,
@@ -104,18 +104,17 @@ app.post("/records", async (request, response) => {
   } = request.body;
 
   try {
-    const record = await sql`
+    const newRecord = await sql`
       INSERT INTO record (user_id, name, amount, transaction_type, description, category_id, createdat ) 
-      VALUES ( ${user_id}, ${name}, ${amount}, ${transaction_type}, ${description}, ${category_id}, ${createdat})`;
+      VALUES ( ${user_id}, ${name}, ${amount}, ${transaction_type}, ${description}, ${category_id}, ${createdat}) RETURNING *`;
 
-    response.json({
-      message: `asdfasdfasdf`, ////
-      record,
-    });
+    response
+      .status(201)
+      .json({ message: "Record created successfully", record: newRecord });
   } catch (error) {
     response
       .status(500)
-      .json({ message: "Blah blah jfkdsjakl;sdfjkslajfkl;dsajkl" }); ////
+      .json({ message: "Internal server error during create record" });
   }
 });
 

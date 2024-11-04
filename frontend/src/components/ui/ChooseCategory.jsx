@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   BluePlusBig,
   DownArrow,
@@ -10,9 +11,37 @@ import {
 } from "../svg";
 
 export const ChooseCategory = () => {
+  const [options, setOptions] = useState(["item1", "item2", "item3", "item4"]);
+  const [open, setOpen] = useState(false);
+
   return (
     <>
-      <button
+      <div className="relative w-full">
+        <div
+          onClick={() => setOpen(!open)}
+          tabIndex={0}
+          className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center"
+        >
+          <p className="text-base font-normal font-roboto text-[#94A3B8]">
+            Choose
+          </p>
+          <DownArrow
+            className={`text-base transition-all ${
+              open ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </div>
+
+        {open && (
+          <div className="absolute top-[110%] left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex flex-col gap-4">
+            {options.map((option) => (
+              <p>{option}</p>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* <button
         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center w-full"
         onClick={() => document.getElementById("plus_category").showModal()}
       >
@@ -75,7 +104,7 @@ export const ChooseCategory = () => {
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
-      </dialog>
+      </dialog> */}
       {/* <details className="dropdown">
         <summary className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center w-full cursor-pointer text-base font-normal font-roboto text-[#94A3B8]">
           Choose
