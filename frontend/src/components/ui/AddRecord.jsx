@@ -20,7 +20,7 @@ export const AddRecord = () => {
       transaction_type: transactionType,
       // category_id: "",
       description: "",
-      // createdat: "",
+      createdat: "",
     },
 
     onSubmit: async (values) => {
@@ -40,7 +40,6 @@ export const AddRecord = () => {
 
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
-        console.log(data);
       } catch (error) {
         setErrorMessage("Network error");
       }
@@ -120,7 +119,6 @@ export const AddRecord = () => {
                       Category
                     </p>
                     <ChooseCategory />
-                    
                   </div>
                   <div className="flex gap-3">
                     <div className="flex flex-col gap-[5px] w-full">
@@ -132,8 +130,8 @@ export const AddRecord = () => {
                         name="createdat"
                         type="date"
                         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center outline-none"
-                        // value={formik.values.createdat}
-                        // onChange={formik.handleChange}
+                        value={formik.values.createdat}
+                        onChange={formik.handleChange}
                       />
                     </div>
                     <div className="flex flex-col gap-[5px] w-full">
@@ -184,7 +182,7 @@ export const AddRecord = () => {
                 <textarea
                   id="description"
                   name="description"
-                  className="w-full h-[282px] rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] p-4 text-base font-normal font-roboto text-[#94A3B8] outline-none"
+                  className="w-full h-[282px] rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] p-4 text-base font-normal font-roboto text-[#94A3B8] resize-none outline-none"
                   placeholder="Write here"
                   value={formik.values.description}
                   onChange={formik.handleChange}

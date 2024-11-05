@@ -118,6 +118,24 @@ app.post("/record", async (request, response) => {
   }
 });
 
+app.post("/category", async (request, response) => {
+  const { name, category_icon, icon_color } = request.body;
+
+  try {
+    const newCategory = await sql`
+      INSERT INTO category (name, category_icon, icon_color )
+      VALUES (${name}, ${category_icon}, ${icon_color}) RETURNING *`;
+
+    response
+      .status(201)
+      .json({ message: "Category created successfully", record: newCategory });
+  } catch (error) {
+    response
+      .status(500)
+      .json({ message: "Internal server error during create category" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
