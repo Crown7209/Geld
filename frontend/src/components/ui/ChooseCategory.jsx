@@ -1,18 +1,29 @@
-import { useState } from "react";
-import {
-  BluePlusBig,
-  DownArrow,
-  DrinkIcon,
-  FoodDrinkIcon,
-  GiftIcon,
-  HomeIcon,
-  ShoppingIcon,
-  TaxiIcon,
-} from "../svg";
+import { useEffect, useState } from "react";
+import { BluePlusBig, DownArrow } from "../svg";
+import { CategoryOption } from "./CategoryOption";
 
 export const ChooseCategory = () => {
-  const [options, setOptions] = useState(["item1", "item2", "item3", "item4"]);
+  const [dataCategory, setDataCategory] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const fetchCategoryData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/category");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const category = await response.json();
+      setDataCategory(category.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategoryData();
+  }, [dataCategory]);
 
   return (
     <>
@@ -33,129 +44,28 @@ export const ChooseCategory = () => {
         </div>
 
         {open && (
-          <div className="absolute top-[110%] left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex flex-col gap-4">
-            {options.map((option) => (
-              <p>{option}</p>
-            ))}
+          <div className="absolute top-[99%] left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
+            <button
+              className="px-4 py-2 flex gap-3 items-center border-b border-[rgba(0,0,0,0.10)] w-full"
+              onClick={() => document.getElementById("add_record").showModal()}
+            >
+              <div className="p-2">
+                <BluePlusBig />
+              </div>
+              <p className="text-base font-normal font-roboto text-[#000000]">
+                Add Category
+              </p>
+            </button>
+            {dataCategory?.map((category, id) => {
+              return (
+                <div key={id}>
+                  <CategoryOption category={category} />
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
-
-      {/* <button
-        className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center w-full"
-        onClick={() => document.getElementById("plus_category").showModal()}
-      >
-        <p className="text-base font-normal font-roboto text-[#94A3B8]">
-          Choose
-        </p>
-        <DownArrow />
-      </button>
-      <dialog id="plus_category" className="modal">
-        <div className="modal-box max-w-[340px] w-full rounded-xl p-0">
-          <div className="px-4 py-2 flex gap-3 items-center border-b border-[rgba(0,0,0,0.10)]">
-            <button
-              className="p-2"
-              onClick={() => document.getElementById("add_record").showModal()}
-            >
-              <BluePlusBig />
-            </button>
-
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Add Category
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
-            <FoodDrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Food
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
-            <HomeIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Home
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
-            <GiftIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Gift
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
-            <DrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Drink
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
-            <TaxiIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Taxi
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
-            <ShoppingIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Shopping
-            </p>
-          </div>
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog> */}
-      {/* <details className="dropdown">
-        <summary className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center w-full cursor-pointer text-base font-normal font-roboto text-[#94A3B8]">
-          Choose
-        </summary>
-        <div className="menu dropdown-content max-w-[348px] w-full rounded-xl bg-white p-0 ">
-          <div className="px-4 py-2 flex gap-3 items-center border-b border-[rgba(0,0,0,0.10)]">
-            <div className="p-2">
-              <BluePlusBig />
-            </div>
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Add Category
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center">
-            <FoodDrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Food
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center">
-            <FoodDrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Home
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center">
-            <FoodDrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Gift
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center">
-            <FoodDrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Drink
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center">
-            <FoodDrinkIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Taxi
-            </p>
-          </div>
-          <div className="px-4 py-2 flex gap-3 items-center">
-            <ShoppingIcon />
-            <p className="text-base font-normal font-roboto text-[#000000]">
-              Shopping
-            </p>
-          </div>
-        </div>
-      </details> */}
     </>
   );
 };

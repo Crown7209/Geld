@@ -15,27 +15,27 @@ app.use(cors());
 app.get("/", async (request, response) => {
   try {
     const users = await sql`SELECT * FROM users`;
-    response.json({ data: users, success: true });
+    response.json({ success: true, statusCode: 201, data: users });
   } catch (error) {
-    response.json({ error: error, success: false });
+    response.json({ success: false, error: error });
   }
 });
 
 app.get("/records", async (request, response) => {
   try {
     const records = await sql`SELECT * FROM "record" ORDER BY createdat DESC`;
-    response.json({ data: records, success: true });
+    response.json({ success: true, statusCode: 201, data: records });
   } catch (error) {
-    response.json({ error: error, success: false });
+    response.json({ success: false, error: error });
   }
 });
 
 app.get("/category", async (request, response) => {
   try {
     const category = await sql`SELECT * FROM category`;
-    response.json({ data: category, success: true });
+    response.json({ success: true, statusCode: 201, data: category });
   } catch (error) {
-    response.json({ error: error, success: false });
+    response.json({ success: false, error: error });
   }
 });
 
@@ -126,13 +126,9 @@ app.post("/category", async (request, response) => {
       INSERT INTO category (name, category_icon, icon_color )
       VALUES (${name}, ${category_icon}, ${icon_color}) RETURNING *`;
 
-    response
-      .status(201)
-      .json({ message: "Category created successfully", record: newCategory });
+    response.status(201).json({ success: "True", statusCode: 201 });
   } catch (error) {
-    response
-      .status(500)
-      .json({ message: "Internal server error during create category" });
+    response.status(500).json({ success: "False", statusCode: 500 });
   }
 });
 

@@ -1,3 +1,5 @@
+import { BluePlusBig } from "../svg";
+
 export const CategoryOption = ({ category }) => {
   return (
     <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
@@ -11,7 +13,7 @@ export const CategoryOption = ({ category }) => {
           viewBox="0 0 24 24"
           fill="none"
         >
-          <path d={`${category.category_icon}`} fill="white" />
+          <path d={`${category?.category_icon}`} fill="white" />
         </svg>
       </div>
       <p className="text-base font-normal font-roboto text-[#000000]">

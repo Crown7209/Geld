@@ -147,10 +147,10 @@ export const RecordsPage = () => {
                 Today
               </p>
               <div className="flex flex-col gap-3">
-                {dataRecord?.map((record, recordIndex) => {
+                {dataRecord?.map((record, recordIndex, dataCategory) => {
                   return (
                     <div key={recordIndex}>
-                      <Record record={record} />
+                      <Record record={record} dataCategory={dataCategory} />
                     </div>
                   );
                 })}
