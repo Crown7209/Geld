@@ -5,6 +5,14 @@ import { CategoryOption } from "./CategoryOption";
 export const ChooseCategory = () => {
   const [dataCategory, setDataCategory] = useState([]);
   const [open, setOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const toggling = () => setOpen(!open);
+
+  const onOptionClicked = (value) => () => {
+    setSelectedOption(value);
+    setOpen(false);
+  };
 
   const fetchCategoryData = async () => {
     try {
@@ -23,22 +31,26 @@ export const ChooseCategory = () => {
 
   useEffect(() => {
     fetchCategoryData();
-  }, [dataCategory]);
+  }, []);
 
   return (
     <>
       <div className="relative w-full">
         <div
-          onClick={() => setOpen(!open)}
+          onClick={toggling}
           tabIndex={0}
           className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center"
         >
-          <p className="text-base font-normal font-roboto text-[#94A3B8]">
-            Choose
+          <p
+            className={`text-base font-normal font-roboto ${
+              selectedOption ? "text-[#0F172A]" : "text-[#94A3B8]"
+            }`}
+          >
+            {selectedOption?.name || "Choose"}
           </p>
           <DownArrow
             className={`text-base transition-all ${
-              open ? "rotate-180" : "rotate-0"
+              !open ? "rotate-180" : "rotate-0"
             }`}
           />
         </div>
@@ -56,11 +68,16 @@ export const ChooseCategory = () => {
                 Add Category
               </p>
             </button>
-            {dataCategory?.map((category, id) => {
+            {dataCategory?.map((category) => {
               return (
-                <div key={id}>
+                <button
+                  type="button"
+                  onClick={onOptionClicked(category)}
+                  className="w-full"
+                  key={category.id}
+                >
                   <CategoryOption category={category} />
-                </div>
+                </button>
               );
             })}
           </div>

@@ -107,7 +107,7 @@ export const AddRecord = () => {
                       id="amount"
                       name="amount"
                       type="number"
-                      className="w-full bg-[#F3F4F6] outline-none text-xl font-normal font-roboto text-[#9CA3AF]"
+                      className="w-full bg-[#F3F4F6] outline-none text-xl font-normal font-roboto text-[#0F172A]"
                       placeholder="₮  000.00"
                       value={formik.values.amount}
                       onChange={formik.handleChange}
@@ -169,7 +169,7 @@ export const AddRecord = () => {
                   id="name"
                   name="name"
                   type="text"
-                  className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 text-base font-normal font-roboto text-[#94A3B8] outline-none"
+                  className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 text-base font-normal font-roboto text-[#0F172A] outline-none"
                   placeholder="Write here"
                   value={formik.values.name}
                   onChange={formik.handleChange}
@@ -182,7 +182,7 @@ export const AddRecord = () => {
                 <textarea
                   id="description"
                   name="description"
-                  className="w-full h-[282px] rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] p-4 text-base font-normal font-roboto text-[#94A3B8] resize-none outline-none"
+                  className="w-full h-[282px] rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] p-4 text-base font-normal font-roboto text-[#0F172A] resize-none outline-none"
                   placeholder="Write here"
                   value={formik.values.description}
                   onChange={formik.handleChange}

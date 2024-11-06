@@ -1,12 +1,52 @@
 import { useState } from "react";
-import { BluePlusIcon, CloseIcon } from "../svg";
+import { BluePlusBig, BluePlusIcon, CloseIcon } from "../svg";
 import { ChooseIcons } from "./ChooseIcons";
 import { useFormik } from "formik";
 import { DownArrow } from "../svg";
-import { Home } from "../icons";
+import {
+  Anchor,
+  BaseBall,
+  BezierCurve,
+  Exam,
+  ExcellLogo,
+  Exclude,
+  Globe,
+  Home,
+  HourGlass,
+  HouseLine,
+  IdentificationBadge,
+  IdentificationCard,
+  ImageSquare,
+  IntersectSquare,
+  Ladder,
+  Leaf,
+  ListPlus,
+  Microphone,
+  NotePad,
+  NumberFive,
+  NumberSeven,
+  Orange,
+  Paper,
+  Peace,
+  Pencil,
+  Plus,
+  Question,
+  Road,
+  Vignette,
+  Watch,
+} from "../icons";
 
 export const AddCategory = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const toggling = () => setOpen(!open);
+
+  const onOptionClicked = (value) => () => {
+    setSelectedOption(value);
+    setOpen(false);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -68,17 +108,65 @@ export const AddCategory = () => {
             onSubmit={formik.handleSubmit}
             className="p-6 flex flex-col gap-8"
           >
-            <div className="flex gap-3 h-12">
+            <div className="flex gap-3 h-12 relative">
               {/* <ChooseIcons /> */}
               <div
+                onClick={toggling}
+                tabIndex={0}
                 className="p-4 flex gap-1 items-center rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] cursor-pointer"
-                // onClick={() =>
-                //   document.getElementById("choose_icons").showModal()
-                // }
               >
-                <Home />
+                <div>{selectedOption || <Home />}</div>
                 <DownArrow />
               </div>
+
+              {open && (
+                <div className="absolute top-[99%] left-0 max-w-[312px] w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
+                  <div className="p-6 flex flex-col gap-6">
+                    <div className="grid grid-cols-6 grid-rows-5 gap-6">
+                      <Home />
+                      <HouseLine />
+                      <IdentificationBadge />
+                      <IdentificationCard />
+                      <Ladder />
+                      <IntersectSquare />
+                      <ImageSquare />
+                      <Plus />
+                      <Microphone />
+                      <ExcellLogo />
+                      <NotePad />
+                      <ListPlus />
+                      <Leaf />
+                      <NumberFive />
+                      <NumberSeven />
+                      <Road />
+                      <HourGlass />
+                      <Anchor />
+                      <BezierCurve />
+                      <Exclude />
+                      <Vignette />
+                      <BaseBall />
+                      <Question />
+                      <Exam />
+                      <Watch />
+                      <Globe />
+                      <Orange />
+                      <Peace />
+                      <Paper />
+                      <Pencil />
+                    </div>
+                    <div className="w-full h-[1px] bg-black opacity-10"></div>
+                    <div className="flex gap-4">
+                      <button className="w-6 h-6 rounded-full bg-[#0166FF]"></button>
+                      <button className="w-6 h-6 rounded-full bg-[#01B3FF]"></button>
+                      <button className="w-6 h-6 rounded-full bg-[#41CC00]"></button>
+                      <button className="w-6 h-6 rounded-full bg-[#F9D100]"></button>
+                      <button className="w-6 h-6 rounded-full bg-[#FF7B01]"></button>
+                      <button className="w-6 h-6 rounded-full bg-[#AE01FF]"></button>
+                      <button className="w-6 h-6 rounded-full bg-[#FF0101]"></button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <input
                 id="name"

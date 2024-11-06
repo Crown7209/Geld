@@ -1,11 +1,11 @@
 import { FoodDrinkIcon } from "../svg/FoodDrinkIcon";
 import { CategoryOption } from "./CategoryOption";
 
-export const Record = ({ record, dataCategory }) => {
+export const Record = ({ record }) => {
   return (
     <div className="px-6 py-3 flex justify-between items-center w-full bg-white border border-[#E5E7EB] rounded-xl">
       <div className="flex gap-4 items-center">
-        {/* <FoodDrinkIcon /> */}
+        <FoodDrinkIcon />
         <div className="flex flex-col">
           <p className="text-base font-normal font-roboto text-[#000000]">
             {record?.name}
