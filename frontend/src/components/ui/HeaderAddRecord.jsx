@@ -54,7 +54,7 @@ export const HeaderAddRecord = () => {
                     <p className="text-base font-normal font-roboto text-[#1F2937]">
                       Category
                     </p>
-                    <ChooseCategory  />
+                    <ChooseCategory />
                   </div>
                   <div className="flex gap-3">
                     <div className="flex flex-col gap-[5px] w-full">
@@ -98,7 +98,6 @@ export const HeaderAddRecord = () => {
                 </p>
                 <input
                   name="payee"
-                  // onChange={handleInputChange}
                   type="text"
                   className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 text-base font-normal font-roboto text-[#94A3B8] outline-none"
                   placeholder="Write here"
