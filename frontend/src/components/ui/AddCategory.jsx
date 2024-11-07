@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { BluePlusIcon, CloseIcon } from "../svg";
+import { BluePlusBig, BluePlusIcon, CloseIcon } from "../svg";
 import { useFormik } from "formik";
 import { DownArrow } from "../svg";
-import { Home } from "../icons";
 import { colors, icons } from "./Data";
+import { Home } from "../icons";
 
 export const AddCategory = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedPath, setSelectedPath] = useState("");
 
   const toggling = () => setOpen(!open);
 
   const onOptionClicked = (value) => () => {
     setSelectedOption(value.icon);
+    setSelectedPath(value.path);
   };
 
   const onColorClicked = (value) => () => {
@@ -25,13 +27,13 @@ export const AddCategory = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      category_icon: "",
-      icon_color: "",
     },
 
     onSubmit: async (values) => {
       const requestData = {
         ...values,
+        category_icon: selectedPath,
+        icon_color: selectedColor,
       };
       try {
         const response = await fetch("http://localhost:5000/category", {
@@ -86,9 +88,12 @@ export const AddCategory = () => {
               <div
                 onClick={toggling}
                 tabIndex={0}
-                className={`p-4 flex gap-1 items-center rounded-lg border border-[#D1D5DB] cursor-pointer ${
-                  `bg-[${selectedColor}]` || "bg-[#F9FAFB]"
-                }`}
+                className="p-4 flex gap-1 items-center rounded-lg border border-[#D1D5DB] cursor-pointer"
+                style={
+                  { backgroundColor: selectedColor } || {
+                    backgroundColor: "#F9FAFB",
+                  }
+                }
               >
                 <div>{selectedOption || <Home />}</div>
                 <DownArrow />
@@ -98,11 +103,11 @@ export const AddCategory = () => {
                 <div className="absolute top-[99%] left-0 max-w-[312px] w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
                   <div className="p-6 flex flex-col gap-6">
                     <div className="grid grid-cols-6 grid-rows-5 gap-6">
-                      {icons.map((icon, id) => {
+                      {icons.map((icon, id, path) => {
                         return (
                           <button
                             type="button"
-                            onClick={onOptionClicked(icon)}
+                            onClick={onOptionClicked(icon, path)}
                             key={id}
                           >
                             {icon.icon}
@@ -118,7 +123,8 @@ export const AddCategory = () => {
                             type="button"
                             onClick={onColorClicked(color)}
                             key={id}
-                            className={`w-6 h-6 rounded-full bg-[${color.color}]`}
+                            style={{ backgroundColor: color.color }}
+                            className={`w-6 h-6 rounded-full`}
                           ></button>
                         );
                       })}

@@ -31,7 +31,7 @@ export const ChooseCategory = () => {
 
   useEffect(() => {
     fetchCategoryData();
-  }, []);
+  }, [dataCategory]);
 
   return (
     <>
@@ -50,7 +50,7 @@ export const ChooseCategory = () => {
           </p>
           <DownArrow
             className={`text-base transition-all ${
-              !open ? "rotate-180" : "rotate-0"
+              open ? "rotate-180" : "rotate-0"
             }`}
           />
         </div>

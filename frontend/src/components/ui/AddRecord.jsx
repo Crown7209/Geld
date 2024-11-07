@@ -46,6 +46,10 @@ export const AddRecord = () => {
     },
   });
 
+  useEffect(() => {
+    
+  }, []);
+
   return (
     <>
       <button

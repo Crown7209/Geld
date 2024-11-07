@@ -4,7 +4,8 @@ export const CategoryOption = ({ category }) => {
   return (
     <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
       <div
-        className={`w-10 h-10 bg-[${category?.icon_color}] rounded-full flex justify-center items-center`}
+        className={`w-10 h-10 rounded-full flex justify-center items-center`}
+        style={{ backgroundColor: category?.icon_color }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
