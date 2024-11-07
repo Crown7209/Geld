@@ -1,5 +1,3 @@
-import { BluePlusBig } from "../svg";
-
 export const CategoryOption = ({ category }) => {
   return (
     <div className="px-4 py-2 flex gap-3 items-center cursor-pointer">
