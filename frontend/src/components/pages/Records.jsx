@@ -7,6 +7,7 @@ import { AddRecord } from "../ui/AddRecord";
 import { Category } from "../ui/Category";
 import { Record } from "../ui/Record";
 import { AddCategory } from "../ui/AddCategory";
+import { CategoryOption } from "../ui/CategoryOption";
 
 export const RecordsPage = () => {
   const [dataRecord, setDataRecord] = useState([]);
@@ -150,7 +151,16 @@ export const RecordsPage = () => {
                 {dataRecord?.map((record, recordIndex) => {
                   return (
                     <div key={recordIndex}>
-                      <Record record={record} />
+                      <Record record={record} dataCategory={dataCategory} />
+                      {/* {dataCategory?.map((category) => {
+                        if (category.id === record.category_id) {
+                          return (
+                            <div>
+                              <CategoryOption category={category} />
+                            </div>
+                          );
+                        }
+                      })} */}
                     </div>
                   );
                 })}

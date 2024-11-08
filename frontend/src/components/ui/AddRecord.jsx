@@ -46,9 +46,7 @@ export const AddRecord = () => {
     },
   });
 
-  useEffect(() => {
-    
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

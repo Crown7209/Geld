@@ -1,20 +1,38 @@
 import { FoodDrinkIcon } from "../svg/FoodDrinkIcon";
 import { CategoryOption } from "./CategoryOption";
 
-export const Record = ({ record }) => {
+export const Record = ({ record, category, dataCategory }) => {
   return (
     <div className="px-6 py-3 flex justify-between items-center w-full bg-white border border-[#E5E7EB] rounded-xl">
-      <div className="flex gap-4 items-center">
-        <FoodDrinkIcon />
-        <div className="flex flex-col">
-          <p className="text-base font-normal font-roboto text-[#000000]">
-            {record?.name}
-          </p>
-          <p className="text-xs font-normal font-roboto text-[#6B7280]">
-            14:00
-          </p>
-        </div>
-      </div>
+      {dataCategory.map((category, index) => {
+        if (category.id === record.category_id)
+          return (
+            <div key={index} className="flex gap-4 items-center">
+              <div
+                className={`w-10 h-10 rounded-full flex justify-center items-center`}
+                style={{ backgroundColor: category?.icon_color }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path d={`${category?.category_icon}`} fill="white" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <p className="text-base font-normal font-roboto text-[#000000]">
+                  {category?.name}
+                </p>
+                <p className="text-xs font-normal font-roboto text-[#6B7280]">
+                  14:00
+                </p>
+              </div>
+            </div>
+          );
+      })}
       <div className="flex gap-2 items-center">
         <p
           className={`text-base font-semibold font-roboto ${
