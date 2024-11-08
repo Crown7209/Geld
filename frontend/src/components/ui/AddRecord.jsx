@@ -149,7 +149,7 @@ export const AddRecord = () => {
                         type="time"
                         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center outline-none"
                         // value={formik.values.createdat}
-                        onChange={formik.handleChange}
+                        // onChange={formik.handleChange}
                       />
                     </div>
                   </div>
