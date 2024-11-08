@@ -8,12 +8,14 @@ import { Category } from "../ui/Category";
 import { Record } from "../ui/Record";
 import { AddCategory } from "../ui/AddCategory";
 import { CategoryOption } from "../ui/CategoryOption";
+import { RecordLoader } from "../ui/RecordLoader";
 
 export const RecordsPage = () => {
   const [dataRecord, setDataRecord] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [error, setError] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [isLoading, setIsLoading] = useState();
   // const [filteredItems, setFilteredItems] = useState("");
 
   // const handleFilter = (selectedRecord) => {
@@ -43,6 +45,7 @@ export const RecordsPage = () => {
 
   const fetchCategoryData = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/category");
 
       if (!response.ok) {
@@ -53,11 +56,14 @@ export const RecordsPage = () => {
       setDataCategory(category.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchRecordsData = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/records");
 
       if (!response.ok) {
@@ -69,16 +75,23 @@ export const RecordsPage = () => {
     } catch (error) {
       console.error(error);
       setError("Error occurred while fetching records.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchCategoryData();
-  }, [dataCategory]);
+  // useEffect(() => {
+  //   fetchCategoryData();
+  // }, [dataCategory]);
+
+  // useEffect(() => {
+  //   fetchRecordsData();
+  // }, [dataRecord]);
 
   useEffect(() => {
     fetchRecordsData();
-  }, [dataRecord]);
+    fetchCategoryData();
+  }, []);
 
   return (
     <div className="w-full min-h-screen h-aut flex flex-col items-center bg-[#F3F4F6] gap-8">
@@ -141,13 +154,15 @@ export const RecordsPage = () => {
               </button>
             </div>
             <div className="flex flex-col gap-2">
-              {dataCategory?.map((category, categoryIndex) => {
-                return (
-                  <div key={categoryIndex}>
+              {isLoading ? (
+                <RecordLoader />
+              ) : (
+                dataCategory?.map((category) => (
+                  <div key={category.id}>
                     <Category category={category} />
                   </div>
-                );
-              })}
+                ))
+              )}
             </div>
             <AddCategory />
           </div>
@@ -180,13 +195,15 @@ export const RecordsPage = () => {
                 Today
               </p>
               <div className="flex flex-col gap-3">
-                {dataRecord?.map((record, recordIndex) => {
-                  return (
-                    <div key={recordIndex}>
+                {isLoading ? (
+                  <RecordLoader />
+                ) : (
+                  dataRecord?.map((record) => (
+                    <div key={record.id}>
                       <Record record={record} dataCategory={dataCategory} />
                     </div>
-                  );
-                })}
+                  ))
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-3">
