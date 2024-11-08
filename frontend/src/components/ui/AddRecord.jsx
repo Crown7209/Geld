@@ -46,8 +46,6 @@ export const AddRecord = () => {
     },
   });
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <button
@@ -120,7 +118,12 @@ export const AddRecord = () => {
                     <p className="text-base font-normal font-roboto text-[#1F2937]">
                       Category
                     </p>
-                    <ChooseCategory />
+                    <ChooseCategory
+                      onChange={formik.handleChange}
+                      value={formik.values.category_id}
+                      id="category_id"
+                      name="category_id"
+                    />
                   </div>
                   <div className="flex gap-3">
                     <div className="flex flex-col gap-[5px] w-full">

@@ -13,6 +13,33 @@ export const RecordsPage = () => {
   const [dataRecord, setDataRecord] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  // const [filteredItems, setFilteredItems] = useState("");
+
+  // const handleFilter = (selectedRecord) => {
+  //   if (selectedFilters.includes(selectedRecord)) {
+  //     let filters = selectedFilters.filter((e) => e !== selectedRecord);
+  //     setSelectedFilters(filters);
+  //   } else {
+  //     setSelectedFilters([...selectedFilters, selectedRecord]);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   filterItems();
+  // }, [selectedFilters]);
+
+  // const filterItems = () => {
+  //   if (selectedFilters.length > 0) {
+  //     let tempItems = selectedFilters.map((selectedRecord) => {
+  //       let temp = items.filter((item) => item.record === selectedRecord);
+  //       return temp;
+  //     });
+  //     setFilteredItems(tempItems.flat());
+  //   } else {
+  //     setFilteredItems([...items]);
+  //   }
+  // };
 
   const fetchCategoryData = async () => {
     try {
@@ -86,7 +113,12 @@ export const RecordsPage = () => {
                 </p>
               </div>
               <div className="px-3 flex gap-2 items-center h-8">
-                <input type="radio" name="radio-1" className="radio w-5 h-5" />
+                <input
+                  type="radio"
+                  name="radio-1"
+                  className="radio w-5 h-5"
+                  // onClick={handleFilter()}
+                />
                 <p className="text-base font-normal font-roboto text-[#1F2937]">
                   Income
                 </p>
@@ -152,15 +184,6 @@ export const RecordsPage = () => {
                   return (
                     <div key={recordIndex}>
                       <Record record={record} dataCategory={dataCategory} />
-                      {/* {dataCategory?.map((category) => {
-                        if (category.id === record.category_id) {
-                          return (
-                            <div>
-                              <CategoryOption category={category} />
-                            </div>
-                          );
-                        }
-                      })} */}
                     </div>
                   );
                 })}

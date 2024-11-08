@@ -74,6 +74,7 @@ export const ChooseCategory = () => {
                   type="button"
                   onClick={onOptionClicked(category)}
                   className="w-full"
+                  value={category.id}
                   key={category.id}
                 >
                   <CategoryOption category={category} />
