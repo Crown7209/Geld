@@ -99,7 +99,7 @@ export const AddCategory = () => {
                 <DownArrow />
               </div>
 
-              {/* {open && (
+              {open && (
                 <div className="absolute top-[99%] left-0 max-w-[312px] w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
                   <div className="p-6 flex flex-col gap-6">
                     <div className="grid grid-cols-6 grid-rows-5 gap-6">
@@ -131,7 +131,7 @@ export const AddCategory = () => {
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
 
               <input
                 id="name"
