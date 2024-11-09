@@ -45,7 +45,7 @@ export const RecordsPage = () => {
 
   const fetchCategoryData = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const response = await fetch("http://localhost:5000/category");
 
       if (!response.ok) {
@@ -57,13 +57,13 @@ export const RecordsPage = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
   const fetchRecordsData = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const response = await fetch("http://localhost:5000/records");
 
       if (!response.ok) {
@@ -76,22 +76,22 @@ export const RecordsPage = () => {
       console.error(error);
       setError("Error occurred while fetching records.");
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
-  // useEffect(() => {
-  //   fetchCategoryData();
-  // }, [dataCategory]);
-
-  // useEffect(() => {
-  //   fetchRecordsData();
-  // }, [dataRecord]);
+  useEffect(() => {
+    fetchCategoryData();
+  }, [dataCategory]);
 
   useEffect(() => {
     fetchRecordsData();
-    fetchCategoryData();
-  }, []);
+  }, [dataRecord]);
+
+  // useEffect(() => {
+  //   fetchRecordsData();
+  //   fetchCategoryData();
+  // }, []);
 
   return (
     <div className="w-full min-h-screen h-aut flex flex-col items-center bg-[#F3F4F6] gap-8">
