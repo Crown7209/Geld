@@ -18,7 +18,7 @@ export const AddRecord = () => {
       name: "",
       amount: "",
       transaction_type: transactionType,
-      // category_id: "",
+      category_id: "",
       description: "",
       createdat: "",
     },
@@ -45,6 +45,10 @@ export const AddRecord = () => {
       }
     },
   });
+
+  const handleCategoryChange = (category) => {
+    formik.setFieldValue("category_id", category.id);
+  };
 
   return (
     <>
@@ -119,10 +123,10 @@ export const AddRecord = () => {
                       Category
                     </p>
                     <ChooseCategory
-                      onChange={formik.handleChange}
-                      value={formik.values.description}
-                      id="description"
-                      name="description"
+                      onCategoryChange={handleCategoryChange}
+                      value={formik.values.category_id}
+                      id="category_id"
+                      name="category_id"
                     />
                   </div>
                   <div className="flex gap-3">
@@ -185,12 +189,12 @@ export const AddRecord = () => {
                   Note
                 </p>
                 <textarea
-                  // id="description"
-                  // name="description"
+                  id="description"
+                  name="description"
                   className="w-full h-[282px] rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] p-4 text-base font-normal font-roboto text-[#0F172A] resize-none outline-none"
                   placeholder="Write here"
-                  // value={formik.values.description}
-                  // onChange={formik.handleChange}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
                 ></textarea>
               </div>
             </div>

@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { BluePlusBig, DownArrow } from "../svg";
 import { CategoryOption } from "./CategoryOption";
 
-export const ChooseCategory = () => {
+export const ChooseCategory = ({ onCategoryChange, value }) => {
   const [dataCategory, setDataCategory] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const toggling = () => setOpen(!open);
 
-  const onOptionClicked = (value) => () => {
-    setSelectedOption(value);
+  const onOptionClicked = (category) => () => {
+    setSelectedOption(category);
+    onCategoryChange(category);
     setOpen(false);
   };
 
