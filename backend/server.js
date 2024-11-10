@@ -132,6 +132,19 @@ app.post("/category", async (request, response) => {
   }
 });
 
+app.delete("/category", async (request, response) => {
+  const { id } = request.body;
+
+  try {
+    const deleteCategory = await sql`
+    DELETE FROM category WHERE id = ${id}`;
+
+    response.status(201).json({ success: "True", statusCode: 201 });
+  } catch (error) {
+    response.status(500).json({ success: "False", statusCode: 500 });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
