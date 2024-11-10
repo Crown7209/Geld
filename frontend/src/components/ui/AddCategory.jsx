@@ -57,7 +57,7 @@ export const AddCategory = () => {
     <>
       <button
         className="px-3 flex items-center gap-2 h-8"
-        onClick={() => document.getElementById("add_record").showModal()}
+        onClick={() => document.getElementById("add_category").showModal()}
       >
         <div className="cursor-pointer">
           <BluePlusIcon />
@@ -67,10 +67,9 @@ export const AddCategory = () => {
           Add Category
         </p>
       </button>
-
-      <dialog id="add_record" className="modal">
-        <div className="modal-box max-w-[494px] w-full rounded-xl p-0">
-          <div className="px-6 py-5 flex items-center justify-between border-b border-[#E2E8F0] bg-white ">
+      <dialog id="add_category" className="modal ">
+        <div className="bg-white max-w-[494px] w-full rounded-xl p-0">
+          <div className="px-6 py-5 flex items-center justify-between border-b border-[#E2E8F0] ">
             <p className="text-xl font-semibold font-roboto text-[#0F172A]">
               Add Category
             </p>
@@ -98,9 +97,8 @@ export const AddCategory = () => {
                 <div>{selectedOption || <Home />}</div>
                 <DownArrow />
               </div>
-
               {open && (
-                <div className="absolute top-[99%] left-0 max-w-[312px] w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
+                <div className="absolute top-[100%] left-0 max-w-[312px] w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
                   <div className="p-6 flex flex-col gap-6">
                     <div className="grid grid-cols-6 grid-rows-5 gap-6">
                       {icons.map((icon, id, path) => {
@@ -143,18 +141,16 @@ export const AddCategory = () => {
                 onChange={formik.handleChange}
               />
             </div>
+
             <button
               type="submit"
               className="bg-[#16A34A] rounded-[20px] h-10 text-base font-normal font-roboto text-[#F9FAFB]"
-              onClick={() => document.getElementById("add_record").close()}
+              onClick={() => document.getElementById("add_category").close()}
             >
               Add
             </button>
           </form>
         </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
       </dialog>
     </>
   );

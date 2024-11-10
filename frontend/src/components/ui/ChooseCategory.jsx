@@ -36,7 +36,7 @@ export const ChooseCategory = ({ onCategoryChange, value }) => {
 
   return (
     <>
-      <div className="relative w-full">
+      <div className="relative w-full cursor-pointer">
         <div
           onClick={toggling}
           tabIndex={0}
@@ -57,10 +57,12 @@ export const ChooseCategory = ({ onCategoryChange, value }) => {
         </div>
 
         {open && (
-          <div className="absolute top-[99%] left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
+          <div className="absolute top-[100%] max-h-[339px] overflow-scroll left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
             <button
               className="px-4 py-2 flex gap-3 items-center border-b border-[rgba(0,0,0,0.10)] w-full"
-              onClick={() => document.getElementById("add_record").showModal()}
+              onClick={() =>
+                document.getElementById("add_category").showModal()
+              }
             >
               <div className="p-2">
                 <BluePlusBig />
