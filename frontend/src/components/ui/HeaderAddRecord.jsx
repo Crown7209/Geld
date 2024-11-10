@@ -13,7 +13,7 @@ export const HeaderAddRecord = () => {
       </button>
 
       <dialog id="header_record" className="modal">
-        <div className="modal-box max-w-[792px] w-full rounded-xl p-0">
+        <div className="bg-white max-w-[792px] w-full rounded-xl p-0">
           <div className="px-6 py-5 flex items-center justify-between border-b border-[#E2E8F0]">
             <p className="text-xl font-semibold font-roboto text-[#0F172A]">
               Add Record
@@ -119,9 +119,6 @@ export const HeaderAddRecord = () => {
             </div>
           </div>
         </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
       </dialog>
     </>
   );
