@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CloseIcon, PlusIcon } from "../svg";
 import { ChooseCategory } from "./ChooseCategory";
 import { useFormik } from "formik";
 
-export const AddRecord = () => {
+export const AddRecord = ({ onAddRecord }) => {
   const [transactionType, setTransactionType] = useState("EXP");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -38,6 +38,7 @@ export const AddRecord = () => {
         });
         const data = await response.json();
 
+        onAddRecord();
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
       } catch (error) {

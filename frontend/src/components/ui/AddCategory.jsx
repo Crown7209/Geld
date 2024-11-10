@@ -5,7 +5,7 @@ import { DownArrow } from "../svg";
 import { colors, icons } from "./Data";
 import { Home } from "../icons";
 
-export const AddCategory = () => {
+export const AddCategory = ({ onAddCategory }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -45,6 +45,7 @@ export const AddCategory = () => {
         });
         const data = await response.json();
 
+        onAddCategory();
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
         console.log(data);

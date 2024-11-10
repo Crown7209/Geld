@@ -57,7 +57,7 @@ export const ChooseCategory = ({ onCategoryChange, value }) => {
         </div>
 
         {open && (
-          <div className="absolute top-[100%] max-h-[339px] overflow-scroll left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
+          <div className="absolute top-[100%] max-h-[339px] overflow-y-scroll left-0 w-full rounded-lg border border-[#D1D5DB] bg-[#F9FAFB]">
             <button
               className="px-4 py-2 flex gap-3 items-center border-b border-[rgba(0,0,0,0.10)] w-full"
               onClick={() =>

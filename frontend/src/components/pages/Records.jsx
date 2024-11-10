@@ -14,38 +14,12 @@ export const RecordsPage = () => {
   const [dataRecord, setDataRecord] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [error, setError] = useState(null);
-  const [selectedFilters, setSelectedFilters] = useState([]);
   const [isLoading, setIsLoading] = useState();
-  // const [filteredItems, setFilteredItems] = useState("");
-
-  // const handleFilter = (selectedRecord) => {
-  //   if (selectedFilters.includes(selectedRecord)) {
-  //     let filters = selectedFilters.filter((e) => e !== selectedRecord);
-  //     setSelectedFilters(filters);
-  //   } else {
-  //     setSelectedFilters([...selectedFilters, selectedRecord]);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   filterItems();
-  // }, [selectedFilters]);
-
-  // const filterItems = () => {
-  //   if (selectedFilters.length > 0) {
-  //     let tempItems = selectedFilters.map((selectedRecord) => {
-  //       let temp = items.filter((item) => item.record === selectedRecord);
-  //       return temp;
-  //     });
-  //     setFilteredItems(tempItems.flat());
-  //   } else {
-  //     setFilteredItems([...items]);
-  //   }
-  // };
+  const [filteredRecords, setFilteredRecords] = useState([]);
 
   const fetchCategoryData = async () => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/category");
 
       if (!response.ok) {
@@ -57,13 +31,13 @@ export const RecordsPage = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
   const fetchRecordsData = async () => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/records");
 
       if (!response.ok) {
@@ -72,26 +46,37 @@ export const RecordsPage = () => {
 
       const record = await response.json();
       setDataRecord(record.data);
+      setFilteredRecords(record.data);
     } catch (error) {
       console.error(error);
       setError("Error occurred while fetching records.");
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
+  // Record filter
+  const filterRecords = (tranType) => {
+    if (tranType === "ALL") {
+      setFilteredRecords(dataRecord);
+    } else {
+      const updateRecord = dataRecord.filter(
+        (curType) => curType.transaction_type === tranType
+      );
+      setFilteredRecords(updateRecord);
+    }
+  };
+
+  // Real-time update
+  const handleAddButton = () => {
     fetchCategoryData();
-  }, [dataCategory]);
+    fetchRecordsData();
+  };
 
   useEffect(() => {
     fetchRecordsData();
-  }, [dataRecord]);
-
-  // useEffect(() => {
-  //   fetchRecordsData();
-  //   fetchCategoryData();
-  // }, []);
+    fetchCategoryData();
+  }, []);
 
   return (
     <div className="w-full min-h-screen h-aut flex flex-col items-center bg-[#F3F4F6] gap-8">
@@ -102,7 +87,7 @@ export const RecordsPage = () => {
             <p className="text-2xl font-semibold font-roboto text-[#000000]">
               Records
             </p>
-            <AddRecord />
+            <AddRecord onAddRecord={handleAddButton} />
           </div>
           <input
             type="text"
@@ -120,6 +105,7 @@ export const RecordsPage = () => {
                   name="radio-1"
                   className="radio w-5 h-5"
                   defaultChecked
+                  onClick={() => filterRecords("ALL")}
                 />
                 <p className="text-base font-normal font-roboto text-[#1F2937]">
                   All
@@ -130,14 +116,19 @@ export const RecordsPage = () => {
                   type="radio"
                   name="radio-1"
                   className="radio w-5 h-5"
-                  // onClick={handleFilter()}
+                  onClick={() => filterRecords("INC")}
                 />
                 <p className="text-base font-normal font-roboto text-[#1F2937]">
                   Income
                 </p>
               </div>
               <div className="px-3 flex gap-2 items-center h-8">
-                <input type="radio" name="radio-1" className="radio w-5 h-5" />
+                <input
+                  type="radio"
+                  name="radio-1"
+                  className="radio w-5 h-5"
+                  onClick={() => filterRecords("EXP")}
+                />
                 <p className="text-base font-normal font-roboto text-[#1F2937]">
                   Expense
                 </p>
@@ -164,7 +155,7 @@ export const RecordsPage = () => {
                 ))
               )}
             </div>
-            <AddCategory />
+            <AddCategory onAddCategory={handleAddButton} />
           </div>
         </div>
         <div className="max-w-[894px] w-full flex flex-col gap-4">
@@ -198,7 +189,7 @@ export const RecordsPage = () => {
                 {isLoading ? (
                   <RecordLoader />
                 ) : (
-                  dataRecord?.map((record) => (
+                  filteredRecords?.map((record) => (
                     <div key={record.id}>
                       <Record record={record} dataCategory={dataCategory} />
                     </div>
