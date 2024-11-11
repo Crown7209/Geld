@@ -29,7 +29,7 @@ export const AddRecord = ({ onAddRecord }) => {
         transaction_type: transactionType,
       };
       try {
-        const response = await fetch("https://geld-663p.onrender.com/record", {
+        const response = await fetch("http://localhost:5000/record", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BluePlusBig, DownArrow } from "../svg";
 import { CategoryOption } from "./CategoryOption";
 
-export const ChooseCategory = ({ onCategoryChange }) => {
+export const ChooseCategory = () => {
   const [dataCategory, setDataCategory] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -17,7 +17,7 @@ export const ChooseCategory = ({ onCategoryChange }) => {
 
   const fetchCategoryData = async () => {
     try {
-      const response = await fetch("https://geld-663p.onrender.com/category");
+      const response = await fetch("http://localhost:5000/category");
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -25,7 +25,6 @@ export const ChooseCategory = ({ onCategoryChange }) => {
 
       const category = await response.json();
       setDataCategory(category.data);
-      fetchCategoryData();
     } catch (error) {
       console.error(error);
     }
