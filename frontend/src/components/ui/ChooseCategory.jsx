@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BluePlusBig, DownArrow } from "../svg";
 import { CategoryOption } from "./CategoryOption";
 
-export const ChooseCategory = ({ onCategoryChange, value }) => {
+export const ChooseCategory = ({ onCategoryChange }) => {
   const [dataCategory, setDataCategory] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -25,6 +25,7 @@ export const ChooseCategory = ({ onCategoryChange, value }) => {
 
       const category = await response.json();
       setDataCategory(category.data);
+      fetchCategoryData();
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +33,7 @@ export const ChooseCategory = ({ onCategoryChange, value }) => {
 
   useEffect(() => {
     fetchCategoryData();
-  }, [dataCategory]);
+  }, []);
 
   return (
     <>
