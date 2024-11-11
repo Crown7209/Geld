@@ -36,13 +36,16 @@ export const AddCategory = ({ onAddCategory }) => {
         icon_color: selectedColor,
       };
       try {
-        const response = await fetch("http://localhost:5000/category", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
+        const response = await fetch(
+          "https://geld-663p.onrender.com/category",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          }
+        );
         const data = await response.json();
 
         onAddCategory();

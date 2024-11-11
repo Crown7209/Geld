@@ -30,7 +30,7 @@ export default function Home() {
       setErrorMessage("");
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:5000/", {
+        const response = await fetch("https://geld-663p.onrender.com/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    setIsLoading(false)
+    setIsLoading(false);
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn) {
       toast.success("You already login");

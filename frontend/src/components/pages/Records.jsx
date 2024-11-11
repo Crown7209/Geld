@@ -19,7 +19,7 @@ export const RecordsPage = () => {
   const fetchCategoryData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:5000/category");
+      const response = await fetch("https://geld-663p.onrender.com/category");
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -37,7 +37,7 @@ export const RecordsPage = () => {
   const fetchRecordsData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:5000/records");
+      const response = await fetch("https://geld-663p.onrender.com/records");
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

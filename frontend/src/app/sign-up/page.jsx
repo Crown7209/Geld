@@ -28,7 +28,7 @@ const SignUpPage = () => {
     onSubmit: async (values) => {
       setErrorMessage("");
       try {
-        const response = await fetch("http://localhost:5000/sign-up", {
+        const response = await fetch("https://geld-663p.onrender.com/sign-up", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
