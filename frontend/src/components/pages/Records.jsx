@@ -7,7 +7,6 @@ import { AddRecord } from "../ui/AddRecord";
 import { Category } from "../ui/Category";
 import { Record } from "../ui/Record";
 import { AddCategory } from "../ui/AddCategory";
-import { CategoryOption } from "../ui/CategoryOption";
 import { RecordLoader } from "../ui/RecordLoader";
 
 export const RecordsPage = () => {
