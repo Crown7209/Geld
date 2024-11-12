@@ -100,7 +100,7 @@ export const AddRecord = ({ onAddRecord }) => {
                 >
                   Income
                 </button>
-                <div className="absolute h-10 w-[172px] bg-[#0166FF]"></div>
+                {/* <div className="absolute h-10 w-[172px] bg-[#0166FF]"></div> */}
               </div>
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-[19px]">
