@@ -8,6 +8,8 @@ import { useFormik } from "formik";
 export const AddRecord = ({ onAddRecord }) => {
   const [transactionType, setTransactionType] = useState("EXP");
   const [errorMessage, setErrorMessage] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   const toggleTransactionType = (type) => {
     setTransactionType(type);
@@ -20,14 +22,16 @@ export const AddRecord = ({ onAddRecord }) => {
       transaction_type: transactionType,
       category_id: "",
       description: "",
-      createdat: "",
+      createdat: "", // Final timestamp in ISO format
     },
 
     onSubmit: async (values) => {
+      // Prepare request data
       const requestData = {
         ...values,
         transaction_type: transactionType,
       };
+
       try {
         const response = await fetch("http://localhost:5000/record", {
           method: "POST",
@@ -36,16 +40,34 @@ export const AddRecord = ({ onAddRecord }) => {
           },
           body: JSON.stringify(requestData),
         });
-        const data = await response.json();
 
-        onAddRecord();
+        const data = await response.json();
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
+
+        onAddRecord();
       } catch (error) {
         setErrorMessage("Network error");
       }
     },
   });
+
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
+    updateCreatedAt(e.target.value, time);
+  };
+
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
+    updateCreatedAt(date, e.target.value);
+  };
+
+  const updateCreatedAt = (date, time) => {
+    if (date && time) {
+      const combinedDateTime = `${date}T${time}`;
+      formik.setFieldValue("createdat", combinedDateTime);
+    }
+  };
 
   const handleCategoryChange = (category) => {
     formik.setFieldValue("category_id", category.id);
@@ -100,7 +122,6 @@ export const AddRecord = ({ onAddRecord }) => {
                 >
                   Income
                 </button>
-                {/* <div className="absolute h-10 w-[172px] bg-[#0166FF]"></div> */}
               </div>
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-[19px]">
@@ -136,12 +157,12 @@ export const AddRecord = ({ onAddRecord }) => {
                         Date
                       </p>
                       <input
-                        id="createdat"
-                        name="createdat"
+                        id="date"
+                        name="date"
                         type="date"
                         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center outline-none"
-                        value={formik.values.createdat}
-                        onChange={formik.handleChange}
+                        value={date}
+                        onChange={handleDateChange}
                       />
                     </div>
                     <div className="flex flex-col gap-[5px] w-full">
@@ -149,12 +170,12 @@ export const AddRecord = ({ onAddRecord }) => {
                         Time
                       </p>
                       <input
-                        id="createdat"
-                        name="createdat"
+                        id="time"
+                        name="time"
                         type="time"
                         className="rounded-lg border border-[#D1D5DB] bg-[#F9FAFB] px-4 py-3 flex justify-between items-center outline-none"
-                        // value={formik.values.createdat}
-                        // onChange={formik.handleChange}
+                        value={time}
+                        onChange={handleTimeChange}
                       />
                     </div>
                   </div>

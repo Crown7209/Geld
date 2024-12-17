@@ -1,7 +1,11 @@
-import { FoodDrinkIcon } from "../svg/FoodDrinkIcon";
-import { CategoryOption } from "./CategoryOption";
-
 export const Record = ({ record, category, dataCategory }) => {
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <div className="px-6 py-3 flex justify-between items-center w-full bg-white border border-[#E5E7EB] rounded-xl">
       {dataCategory.map((category, index) => {
@@ -27,7 +31,7 @@ export const Record = ({ record, category, dataCategory }) => {
                   {category?.name}
                 </p>
                 <p className="text-xs font-normal font-roboto text-[#6B7280]">
-                  14:00
+                  {formatDate(record.createdat)}
                 </p>
               </div>
             </div>
