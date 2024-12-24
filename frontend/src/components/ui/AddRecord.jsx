@@ -226,5 +226,3 @@ export const AddRecord = ({ onAddRecord }) => {
     </>
   );
 };
-//
-///.//
